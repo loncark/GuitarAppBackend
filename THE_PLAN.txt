@@ -1,0 +1,22 @@
+Started with a HelloWorld Spring Boot app on 30.5.2023.
+
+Creation of classes progression:
+- GuitarController -> Guitar, Material -> GuitarRepository
+-> schema.sql, data.sql -> GuitarDTO -> GuitarService
+
+How the JPA (Java Persistence API) works:
+1. Mark the class you want to be the row of a table with @Entity
+2. In that class, mark an id with @Id and @GeneratedValue(strategy = GenerationType.IDENTITY)
+3. If no table name is specified, JPA assumes that the table name is equal to the class name
+4. The entity class has to have a default empty constructor
+5. Create a ClassRepository interface that extends JpaRepository
+
+"ChatGPT says this: Here are the commonly used methods available by default [after extending the JpaRepository]:
+
+-> findAll(): Retrieves all entities of the specified type.
+-> findById(ID id): Retrieves an entity by its ID.
+-> save(S entity): Saves an entity (inserts or updates) and returns the saved entity.
+-> deleteById(ID id): Deletes an entity by its ID.
+-> count(): Returns the count of entities.
+-> existsById(ID id): Checks if an entity with the given ID exists.
+-> findAllById(Iterable<ID> ids): Retrieves a list of entities by their IDs.
