@@ -4,14 +4,16 @@ Creation of classes progression:
 - GuitarController -> Guitar, Material -> GuitarRepository
 -> schema.sql, data.sql -> GuitarDTO -> GuitarService
 
+
 How the JPA (Java Persistence API) works:
 1. Mark the class you want to be the row of a table with @Entity
 2. In that class, mark an id with @Id and @GeneratedValue(strategy = GenerationType.IDENTITY)
 3. If no table name is specified, JPA assumes that the table name is equal to the class name
 4. The entity class has to have a default empty constructor
 5. Create a ClassRepository interface that extends JpaRepository
+6. Call the methods provided by default
 
-"ChatGPT says this: Here are the commonly used methods available by default [after extending the JpaRepository]:
+ChatGPT says this: Here are the commonly used methods available by default [just by extending the JpaRepository]:
 
 -> findAll(): Retrieves all entities of the specified type.
 -> findById(ID id): Retrieves an entity by its ID.
@@ -20,3 +22,13 @@ How the JPA (Java Persistence API) works:
 -> count(): Returns the count of entities.
 -> existsById(ID id): Checks if an entity with the given ID exists.
 -> findAllById(Iterable<ID> ids): Retrieves a list of entities by their IDs.
+
+
+CONFIGURING THE H2 DATABASE
+1. Create schema.sql and data.sql files in the resources folder
+2. Update the application.properties with
+spring.datasource.url=jdbc:h2:mem:testdb		//default!
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=none
+spring.h2.console.enabled=true
+3. The database console can be accessed on localhost:your-app-port/h2-console (default is 8080, can be changed in application.properties)
