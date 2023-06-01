@@ -12,4 +12,5 @@ public interface GuitarRepository extends JpaRepository<Guitar, Long> {
 
     Optional<Guitar> findByCode(String code);
 
+    void deleteByCode(String code);
 }

@@ -15,5 +15,5 @@ public interface GuitarService {
 
     //Optional<GuitarDTO> update(String code, HardwareUpdateCommand updatedHardwareCommand);
 
-    //void deleteByCode(String code);
+    void deleteByCode(String code);
 }

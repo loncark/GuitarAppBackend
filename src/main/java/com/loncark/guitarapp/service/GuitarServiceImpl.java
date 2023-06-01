@@ -28,4 +28,10 @@ public class GuitarServiceImpl implements GuitarService {
         return guitarRepository.findByCode(code).map(guitar -> new GuitarDTO(code, guitar));
     }
 
+    @Override
+    public void deleteByCode(String code) {
+        guitarRepository.deleteByCode(code);
+    }
+
+
 }
