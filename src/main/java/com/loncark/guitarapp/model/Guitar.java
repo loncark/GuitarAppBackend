@@ -9,7 +9,7 @@ public class Guitar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Long code;
+    String code;
 
     @Enumerated(EnumType.STRING)
     Material body;
@@ -28,7 +28,7 @@ public class Guitar {
                 '}';
     }
 
-    public Guitar(String brand, Material body, Material neck, String name, BigDecimal price, Long stock, Long code) {
+    public Guitar(Material body, Material neck, String name, BigDecimal price, Long stock, String code) {
         this.body = body;
         this.neck = neck;
         this.name = name;
@@ -63,7 +63,7 @@ public class Guitar {
         return stock;
     }
 
-    public Long getCode() {
+    public String getCode() {
         return code;
     }
 

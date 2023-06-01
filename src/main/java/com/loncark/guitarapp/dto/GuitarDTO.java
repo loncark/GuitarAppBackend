@@ -8,13 +8,15 @@ public class GuitarDTO {
     Long id;
     String name;
     BigDecimal price;
-    Long code;
+    Long stock;
+    String code;
 
-    public GuitarDTO(Long code, Guitar guitar) {
+    public GuitarDTO(String code, Guitar guitar) {
         this.id = guitar.getId();
         this.name = guitar.getName();
         this.price = guitar.getPrice();
         this.code = code;
+        this.stock = guitar.getStock();
     }
 
     public GuitarDTO(Guitar guitar) {
@@ -22,9 +24,12 @@ public class GuitarDTO {
         this.name = guitar.getName();
         this.price = guitar.getPrice();
         this.code = guitar.getCode();
+        this.stock = guitar.getStock();
     }
 
-    public GuitarDTO() {}
+    public Long getStock() {
+        return stock;
+    }
 
     public Long getId() {
         return id;
@@ -38,7 +43,7 @@ public class GuitarDTO {
         return price;
     }
 
-    public Long getCode() {
+    public String getCode() {
         return code;
     }
 }

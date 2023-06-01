@@ -9,7 +9,7 @@ public interface GuitarService {
 
     List<GuitarDTO> findAll();
 
-    //Optional<GuitarDTO> findByCode(String code);
+    Optional<GuitarDTO> findByCode(String code);
 
     //Optional<GuitarDTO> save(HardwareCommand hardwareCommand);
 
