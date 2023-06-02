@@ -1,5 +1,6 @@
 package com.loncark.guitarapp.service;
 
+import com.loncark.guitarapp.command.GuitarCommand;
 import com.loncark.guitarapp.dto.GuitarDTO;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface GuitarService {
 
     Optional<GuitarDTO> findByCode(String code);
 
-    //Optional<GuitarDTO> save(HardwareCommand hardwareCommand);
+    Optional<GuitarDTO> save(GuitarCommand gCommand);
 
     //Optional<GuitarDTO> update(String code, HardwareUpdateCommand updatedHardwareCommand);
 

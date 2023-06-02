@@ -1,5 +1,6 @@
 package com.loncark.guitarapp.service;
 
+import com.loncark.guitarapp.command.GuitarCommand;
 import com.loncark.guitarapp.dto.GuitarDTO;
 import com.loncark.guitarapp.model.Guitar;
 import com.loncark.guitarapp.repository.GuitarRepository;
@@ -26,6 +27,11 @@ public class GuitarServiceImpl implements GuitarService {
     @Override
     public Optional<GuitarDTO> findByCode(String code) {
         return guitarRepository.findByCode(code).map(guitar -> new GuitarDTO(code, guitar));
+    }
+
+    @Override
+    public Optional<GuitarDTO> save(GuitarCommand gCommand) {
+        return Optional.of(new GuitarDTO(guitarRepository.save(new Guitar(gCommand))));
     }
 
     @Override

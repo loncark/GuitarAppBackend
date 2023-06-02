@@ -1,5 +1,6 @@
 package com.loncark.guitarapp.model;
 
+import com.loncark.guitarapp.command.GuitarCommand;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -35,6 +36,15 @@ public class Guitar {
         this.price = price;
         this.stock = stock;
         this.code = code;
+    }
+
+    public Guitar(GuitarCommand gCommand) {
+        this.code = gCommand.getCode();
+        this.name = gCommand.getName();
+        this.price = gCommand.getPrice();
+        this.stock = gCommand.getStock();
+        this.body = gCommand.getBody();
+        this.neck = gCommand.getNeck();
     }
 
     public Guitar() {}

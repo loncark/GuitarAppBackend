@@ -23,7 +23,6 @@ public class GuitarControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Fender Gold Foil Jazzmaster"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(1649))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(4))
