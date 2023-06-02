@@ -35,6 +35,11 @@ public class GuitarServiceImpl implements GuitarService {
     }
 
     @Override
+    public Optional<GuitarDTO> update(Guitar guitar) {
+        return Optional.of(new GuitarDTO(guitarRepository.save(guitar)));
+    }
+
+    @Override
     public void deleteByCode(String code) {
         guitarRepository.deleteByCode(code);
     }

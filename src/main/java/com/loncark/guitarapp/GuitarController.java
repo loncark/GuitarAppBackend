@@ -2,6 +2,7 @@ package com.loncark.guitarapp;
 
 import com.loncark.guitarapp.command.GuitarCommand;
 import com.loncark.guitarapp.dto.GuitarDTO;
+import com.loncark.guitarapp.model.Guitar;
 import com.loncark.guitarapp.service.GuitarService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,13 @@ public class GuitarController {
     public GuitarDTO save(@Valid @RequestBody final GuitarCommand command) {
         return guitarService.save(command)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "A guitar with the same code already exists"));
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PutMapping
+    public GuitarDTO update(@Valid @RequestBody final Guitar guitar) {
+        return guitarService.update(guitar)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hardware was not found by that id"));
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
