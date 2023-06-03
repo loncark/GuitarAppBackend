@@ -1,6 +1,5 @@
 package com.loncark.guitarapp;
 
-import com.loncark.guitarapp.command.GuitarCommand;
 import com.loncark.guitarapp.dto.GuitarDTO;
 import com.loncark.guitarapp.model.Guitar;
 import com.loncark.guitarapp.service.GuitarService;
@@ -36,14 +35,14 @@ public class GuitarController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public GuitarDTO save(@Valid @RequestBody final GuitarCommand command) {
-        return guitarService.save(command)
+    public GuitarDTO save(@Valid @RequestBody final Guitar guitar) {
+        return guitarService.save(guitar)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "A guitar with the same code already exists"));
     }
 
     @PutMapping
     public GuitarDTO update(@Valid @RequestBody final Guitar guitar) {
-        return guitarService.update(guitar)
+        return guitarService.save(guitar)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hardware was not found by that id"));
     }
 

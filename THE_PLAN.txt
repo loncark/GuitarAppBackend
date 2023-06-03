@@ -42,4 +42,4 @@ spring.h2.console.enabled=true
 ---------------------------------------------------------------------
 
 - wrote GET and DELETE methods and tests
-- wrote POST and PUT methods
+- wrote POST and PUT methods and tests

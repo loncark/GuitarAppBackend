@@ -1,6 +1,5 @@
 package com.loncark.guitarapp.service;
 
-import com.loncark.guitarapp.command.GuitarCommand;
 import com.loncark.guitarapp.dto.GuitarDTO;
 import com.loncark.guitarapp.model.Guitar;
 
@@ -13,9 +12,7 @@ public interface GuitarService {
 
     Optional<GuitarDTO> findByCode(String code);
 
-    Optional<GuitarDTO> save(GuitarCommand gCommand);
-
-    Optional<GuitarDTO> update(Guitar guitar);
+    Optional<GuitarDTO> save(Guitar guitar);
 
     void deleteByCode(String code);
 }
