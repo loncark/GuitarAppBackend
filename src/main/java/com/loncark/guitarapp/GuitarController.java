@@ -41,7 +41,6 @@ public class GuitarController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "A guitar with the same code already exists"));
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PutMapping
     public GuitarDTO update(@Valid @RequestBody final Guitar guitar) {
         return guitarService.update(guitar)
