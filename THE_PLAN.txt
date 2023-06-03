@@ -33,7 +33,13 @@ spring.jpa.show-sql=true
 spring.jpa.hibernate.ddl-auto=none
 spring.h2.console.enabled=true
 3. The database console can be accessed on localhost:your-app-port/h2-console (default is 8080, can be changed in application.properties)
+4. The default address needs to be pasted into the console to access it
 
 ---------------------------------------------------------------------
 
-- created a GET all guitars method
+*** DO NOT PUT IDS IN DATA.SQL WHEN WORKING WITH JPA ***
+
+---------------------------------------------------------------------
+
+- wrote GET and DELETE methods and tests
+- wrote POST and PUT methods
