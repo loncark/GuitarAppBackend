@@ -69,7 +69,7 @@ public class GuitarControllerTest {
     @Test
     public void testUpdate() throws Exception {
         String requestBody = "{" +
-                "\"id\": \"3\", " +
+                "\"id\": 3, " +
                 "\"code\": \"1111\", " +
                 "\"body\": \"Mahogany\", " +
                 "\"neck\": \"Maple\", " +
