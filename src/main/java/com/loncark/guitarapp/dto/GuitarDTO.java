@@ -1,6 +1,6 @@
 package com.loncark.guitarapp.dto;
 
-import com.loncark.guitarapp.model.Guitar;
+import com.loncark.guitarapp.model.guitar.Guitar;
 
 import java.math.BigDecimal;
 

@@ -1,5 +1,6 @@
-package com.loncark.guitarapp.model;
+package com.loncark.guitarapp.model.guitar;
 
+import com.loncark.guitarapp.model.Material;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

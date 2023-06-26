@@ -1,7 +1,7 @@
 package com.loncark.guitarapp;
 
 import com.loncark.guitarapp.dto.GuitarDTO;
-import com.loncark.guitarapp.model.Guitar;
+import com.loncark.guitarapp.model.guitar.Guitar;
 import com.loncark.guitarapp.service.GuitarService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

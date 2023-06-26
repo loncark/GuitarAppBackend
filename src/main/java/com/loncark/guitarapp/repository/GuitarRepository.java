@@ -1,6 +1,6 @@
 package com.loncark.guitarapp.repository;
 
-import com.loncark.guitarapp.model.Guitar;
+import com.loncark.guitarapp.model.guitar.Guitar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
