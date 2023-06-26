@@ -43,3 +43,45 @@ spring.h2.console.enabled=true
 
 - wrote GET and DELETE methods and tests
 - wrote POST and PUT methods and tests
+
+---------------------------------------------------------------------
+
+Created a JavaFx client that consumes all the endpoints:
+
+- wrote the GuitarAppClient in the same way we did in the labs
+- prepared the scene using SceneBuilder
+- added adequate id's to elements, specified onClick methods for buttons and the controller
+- SAVED EVERY TIME I MADE A CHANGE
+- added and modified the Alerts class to have some input sanitization
+- gave up on tests for it because the dependencies were impossible to configure
+
+---------------------------------------------------------------------
+
+Created a MuleSoft Flow that consumes the endpoints and publishes messages to ActiveMQ:
+
+- Mule app listens on port 7001
+- saves the request into a variable and writes it down into a txt file
+- the request gets sent to the server where it is processed
+- the response is appended to the same txt file and sent back to the client
+- additionally, the whole file gets read and its contents are published to the queue
+- for ActiveMQ intructions, refer to the specific capitalized txt file
+
+---------------------------------------------------------------------
+
+Created a jBPM process that consumes two endpoints of the GuitarApp:
+
+- ran the jBPM container and accessed the console on localhost:8080/business-central with wbadmin/wbadmin credentials
+- created an new project within the existing space and a new business process inside the project
+- dnd all the components, specify their nature (human task, script...), decide on branching conditions, specify process data and assign it properly
+- add a work item handler by going to project Settings -> Deployments -> Work Item Handlers, add 'Rest' as a name and 'new org.jbpm.process.workitem.rest.RESTWorkItemHandler()' as a value
+- build and deploy the process
+- start the GuitarApp server
+- go to Menu -> Process instances -> New Instance -> GuitarAppProcess, enter nothing, just Submit
+- go to Menu -> Tasks, click on the latest task and complete it
+- if the process finishes correctly, you should be able to find the output in the server.log file (located at standalone/log folder)
+
+--------------------------------------------------------------------
+
+Created a NIIS branch whose pom.xml, application.properties and Controller are altered to send a message on POST, PUT and DELETE to the message queue using JMS template.
+
+Done.

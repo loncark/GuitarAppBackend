@@ -1,0 +1,15 @@
+It's a message broker that allows multiple publishers (including or excluding you) to send message to it and one consumer to consume these messages.
+
+Steps to make it work in Anypoint Studio:
+
+1. Download the ActiveMQ server and run the activemq.bat in win64 folder.
+2. Access the broker on localhost:8161 with admin/admin credentials.
+3. Create a new queue.
+4. In Anypoint Studio, decide if you want to publish or consume messages from the queue. Pick the appropriate JMS connector and dnd it to the screen.
+5. Setup the JMS Config file: Add the recommended libraries for ActiveMQ Connection and pick 'Edit inline' for Factory Configuration. Here paste 'tcp://localhost:61616' as a broker url.
+6. Test the connection (while the ActiveMQ server runs in the background).
+7. Set the destination setting of your connector to the name of the queue you created in step 3.
+8. Specify what message you want to send in the body.
+9. Build and run the Mule app.
+10. Send to it the appropriate request using a REST Client.
+11. If everything goes well, refresh the ActiveMQ broker tab and you will see that you have a pending message with the body you specified in the connector settings.
