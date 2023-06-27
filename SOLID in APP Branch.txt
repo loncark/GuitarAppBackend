@@ -1,0 +1,13 @@
+1. Single responsibility principle:
+Instead of putting all the code and functionalities in the same class, we use a controller, a service and a repository class each to handle a single problem. Controller is the one that deals with routing requests, Service provides a set of available methods to call and repository handles database queries.
+
+2. Open/closed principle:
+Instead of modifying the Guitar class, I derive a ElectricGuitar class and a ClassicalGuitar from it.
+
+3. Liskov substitution principle: Both extend the initial Guitar class and are therefore pluggable into the existing server interface.
+
+4. Interface segregation principle: 
+A possible interface for an instrument is very large. In this case, it may consist of plugging the instrument into a power source, tuning it and polishing its body. Since not all functionalities of that interface can be implemented in all instruments, we split it into PolishableInstrument, TunableInstrument and PluggableInstrument. ElectricGuitar implements then Pluggable and Tunable, Classical Polishable and Tunable, whereas for example an oboe, if we were to add it, would be neither.
+
+5. Dependency inversion principle: 
+Instead of making all guitars dependent on one type of strings, I implement an interface of Strings and derive from it different types of strings. ElectricGuitar class gets constructed with SteelStrings and a ClassicalGuitar  gets constructed with NylonStrings. 

@@ -11,6 +11,17 @@ public class GuitarDTO {
     Long stock;
     String code;
 
+    @Override
+    public String toString() {
+        return "GuitarDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", code='" + code + '\'' +
+                '}';
+    }
+
     public GuitarDTO(String code, Guitar guitar) {
         this.id = guitar.getId();
         this.name = guitar.getName();
