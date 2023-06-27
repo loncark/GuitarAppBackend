@@ -1,0 +1,34 @@
+Create PrometheusConfig class:
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+@Configuration
+@EnableScheduling
+public class PrometheusConfig {
+}
+
+
+
+add these to application.properties:
+
+management.endpoints.web.exposure.include=*
+management.endpoint.metrics.enabled=true
+spring.main.allow-bean-definition-overriding=true
+
+
+
+and these to pom.xml:
+<!-- For prometheus monitoring -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+
+
+Then run the prometheus server/container and access the console on localhost:9090. Pick a desired metric, set time to last 5mins and click execute. Then send some requests.
