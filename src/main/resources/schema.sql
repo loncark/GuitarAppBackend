@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS guitar
+DROP TABLE IF EXISTS guitar;
+CREATE TABLE guitar
 (
     id    INT AUTO_INCREMENT,
     code  VARCHAR(100)   NOT NULL UNIQUE,
@@ -9,3 +10,4 @@ CREATE TABLE IF NOT EXISTS guitar
     price DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (id)
 );
+
