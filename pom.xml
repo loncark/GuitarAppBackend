@@ -41,10 +41,11 @@
 
 		<!-- For your preferred database driver -->
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.26</version>
 		</dependency>
+
 
 		<!-- For validation of GuitarCommand-->
 		<dependency>

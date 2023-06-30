@@ -12,3 +12,5 @@ public class GuitarappApplication {
     }
 
 }
+
+// docker exec -it mysql-container mysql -uroot -ppassword

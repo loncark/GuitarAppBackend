@@ -1,7 +1,7 @@
-delete from guitar;
+DELETE FROM guitar;
 
-insert into guitar (code, name, body, neck, stock, price)
-values
+INSERT INTO guitar (code, name, body, neck, stock, price)
+VALUES
     ('1231', 'Fender American Vintage II 1961 Stratocaster', 'Alder', 'Rosewood', 2, 2449.00),
     ('1232', 'Fender American Ultra Telecaster', 'Ebony', 'Maple', 3, 2649.00),
     ('1233', 'Fender Gold Foil Jazzmaster', 'Mahogany', 'Rosewood', 4, 1649.00),
