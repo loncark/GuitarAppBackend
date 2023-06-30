@@ -1,0 +1,32 @@
+To package your Spring Boot application into a JAR file using IntelliJ IDEA, you can follow these steps:
+
+    Open your Spring Boot project in IntelliJ IDEA.
+
+    Make sure your project is configured as a Maven project.
+    If it is not already configured, you can right-click on the project folder in the Project Explorer,
+    select "Add Framework Support," and choose Maven.
+
+    Ensure that your Spring Boot application has a proper Maven configuration file named pom.xml.
+    This file should be located in the root directory of your project. If you don't have a pom.xml file,
+    you can create one using the Spring Initializr or by manually creating a Maven project.
+
+    Build the project by selecting "Build" -> "Build Project" from the top menu or using the shortcut keys
+    (e.g., Ctrl + F9 on Windows/Linux or Command + F9 on macOS). This step ensures that all dependencies are
+    downloaded and the project is compiled successfully.
+
+    After the build process completes, open the Maven Projects tool window by selecting
+    "View" -> "Tool Windows" -> "Maven Projects" from the top menu.
+
+    In the Maven Projects tool window, expand your project and navigate to the "Lifecycle" section.
+
+    Double-click on the "package" lifecycle phase. This will execute the Maven package goal, which creates a
+    JAR file containing your Spring Boot application.
+
+    Wait for the Maven build process to complete. You can monitor the build progress in the "Run" tool
+    window at the bottom of IntelliJ IDEA.
+
+    Once the build is successful, the generated JAR file can be found in the target directory of your project.
+    The JAR file will have a name that matches your project's artifact ID and version, such as myproject-1.0.0.jar.
+
+Congratulations! You have successfully packaged your Spring Boot application into a JAR file using IntelliJ IDEA.
+You can now distribute and run the JAR file on any environment with a compatible Java runtime.
