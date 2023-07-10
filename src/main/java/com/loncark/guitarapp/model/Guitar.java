@@ -19,6 +19,16 @@ public class Guitar {
     BigDecimal price;
     Long stock;
 
+    public Guitar(long id, Material body, Material neck, String name, BigDecimal price, long stock, String code) {
+        this.id = id;
+        this.body = body;
+        this.neck = neck;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "Guitar{" +
@@ -67,4 +77,5 @@ public class Guitar {
         return code;
     }
 
+    public void setId(long newid) { id = newid; }
 }

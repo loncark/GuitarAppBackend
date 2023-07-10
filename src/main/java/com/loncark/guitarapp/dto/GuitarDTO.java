@@ -3,6 +3,7 @@ package com.loncark.guitarapp.dto;
 import com.loncark.guitarapp.model.Guitar;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class GuitarDTO {
     Long id;

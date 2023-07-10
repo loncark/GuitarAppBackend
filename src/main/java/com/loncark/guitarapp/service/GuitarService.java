@@ -14,5 +14,7 @@ public interface GuitarService {
 
     Optional<GuitarDTO> save(Guitar guitar);
 
+    Optional<GuitarDTO> update(Guitar updatedGuitar);
+
     void deleteByCode(String code);
 }

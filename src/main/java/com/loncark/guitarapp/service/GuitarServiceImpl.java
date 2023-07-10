@@ -30,7 +30,19 @@ public class GuitarServiceImpl implements GuitarService {
 
     @Override
     public Optional<GuitarDTO> save(Guitar guitar) {
-        return Optional.of(new GuitarDTO(guitarRepository.save(guitar)));
+        Optional<Guitar> savedGuitar = guitarRepository.save(guitar);
+
+        if(savedGuitar.isPresent()) {
+            return Optional.of(new GuitarDTO(savedGuitar.get()));
+        }
+        else return Optional.empty();
+    }
+
+    @Override
+    public Optional<GuitarDTO> update(Guitar updatedGuitar) {
+        return guitarRepository
+                .update(updatedGuitar)
+                .map(guitar -> new GuitarDTO(guitar));
     }
 
     @Override

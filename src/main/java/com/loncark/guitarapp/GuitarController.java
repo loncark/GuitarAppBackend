@@ -42,7 +42,7 @@ public class GuitarController {
 
     @PutMapping
     public GuitarDTO update(@Valid @RequestBody final Guitar guitar) {
-        return guitarService.save(guitar)
+        return guitarService.update(guitar)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A guitar was not found by that id"));
     }
 
