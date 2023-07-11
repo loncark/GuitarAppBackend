@@ -7,3 +7,9 @@ create table if not exists guitar (
     stock int not null,
     price numeric not null
 );
+
+create table if not exists userinfo (
+    id identity,
+    name varchar(100) not null,
+    password varchar(100) not null
+);

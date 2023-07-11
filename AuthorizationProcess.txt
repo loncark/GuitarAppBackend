@@ -1,0 +1,41 @@
+Followed this video: https://youtu.be/R76S0tfv36w
+
+0. Add
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+to pom.xml.
+
+1. Create a SecurityConfigurer class and in it a userDetailsService()
+that maps users to roles using a password encoder.
+2. Add a SecurityFilterChain to determine which requests should
+require authorization before continuation.
+
+3. Add @PreAuthorize("hasAuthority('ROLE_ADMIN')") annotation to
+endpoints in the controller to determine who can access which
+endpoint
+
+This should now work.
+
+4. To use a database instead of manual mapping of the roles to
+users, create a UserInfo class and use lombok to autogenerate
+constructors, getters and setters (@Data).
+5. Create a UserInfoRepository.
+6. Make the userDetailsService() return a UserInfoUserDetailsService.
+
+7. Create the UserInfoDetailsService class which is an
+implementation of UserDetailsService and inject the
+UserInfoRepository inside it. The loadUserByUsername() method
+which needs to be implemented will retrieve a UserInfo object and
+it needs to be converted to the UserDetails return type. That's
+why we create a UserInfoUserDetails class that implements UserDetails.
+
+8. Create a UserInfoUserDetails class that mirrors UserInfo
+and implement all the methods. Make loadUserByUsername return
+the UserInfo object mapped to UserDetails.
+
+9. Update the schema.sql and optionally data.sql.
+
+10. Create a new AuthService to hold a addUser() function and add
+an endpoint to the controller to utilize it.

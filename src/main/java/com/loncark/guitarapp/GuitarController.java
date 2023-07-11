@@ -5,6 +5,7 @@ import com.loncark.guitarapp.model.Guitar;
 import com.loncark.guitarapp.service.GuitarService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -35,12 +36,14 @@ public class GuitarController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public GuitarDTO save(@Valid @RequestBody final Guitar guitar) {
         return guitarService.save(guitar)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "A guitar with the same code already exists"));
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public GuitarDTO update(@Valid @RequestBody final Guitar guitar) {
         return guitarService.update(guitar)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A guitar was not found by that id"));
@@ -48,6 +51,7 @@ public class GuitarController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{code}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void delete(@PathVariable String code){
         guitarService.deleteByCode(code);
     }

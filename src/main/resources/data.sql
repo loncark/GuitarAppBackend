@@ -8,3 +8,11 @@ values
     ('1234', 'Gibson Les Paul Standard 60s', 'Ebony', 'Rosewood', 5, 2999.00),
     ('1235', 'Gibson SG Special', 'Mahogany', 'Maple', 1, 1599.00),
     ('1236', 'Ibanez RG450DX', 'Alder', 'Maple', 8, 449.00);
+
+delete from userinfo;
+
+insert into userinfo (name, password)
+values ( 'John', 'johnpassword' ),
+       ( 'Mark', 'markpassword' ),
+       ( 'Luke', 'lukepassword' ),
+       ( 'Matthew', 'matthewpassword' );
