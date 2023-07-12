@@ -41,5 +41,7 @@ the UserInfo object mapped to UserDetails.
 11. Create a new AuthController with an addNewUser endpoint.
 12. Add a AuthenticationProvider to SecurityConfigurer (no
 particular usage, Spring Boot doesn't work without it).
+13. Add a WebSecurityCustomizer to enable all access
+to h2-console.
 
 This should now work.
