@@ -1,14 +1,21 @@
 package com.loncark.guitarapp.repository;
 
 import com.loncark.guitarapp.model.UserInfo;
+import org.springframework.context.annotation.Primary;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
+@Primary
+@Repository
 public class JdbcUserInfoRepository implements UserInfoRepository {
 
     private static final String SELECT_ALL = "SELECT * from userinfo";
@@ -34,11 +41,32 @@ public class JdbcUserInfoRepository implements UserInfoRepository {
         }
     }
 
+    @Override
+    public Optional<UserInfo> save(UserInfo userInfo) {
+        try {
+            userInfo.setId(saveUserInfoDetails(userInfo));
+            return Optional.of(userInfo);
+        } catch (DuplicateKeyException e) {
+            return Optional.empty();
+        }
+    }
+
+    private Long saveUserInfoDetails(UserInfo userInfo) {
+        Map<String, Object> values = new HashMap<>();
+
+        values.put("name", userInfo.getName());
+        values.put("password", userInfo.getPassword());
+        values.put("roles", userInfo.getRoles());
+
+        return simpleJdbcInsert.executeAndReturnKey(values).longValue();
+    }
+
     private UserInfo mapRowToUserInfo(ResultSet rs, int rowNum) throws SQLException {
         return new UserInfo(
                 rs.getLong("id"),
                 rs.getString("name"),
-                rs.getString("password")
+                rs.getString("password"),
+                rs.getString("roles")
         );
     }
 }

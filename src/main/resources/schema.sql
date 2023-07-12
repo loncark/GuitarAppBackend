@@ -11,5 +11,6 @@ create table if not exists guitar (
 create table if not exists userinfo (
     id identity,
     name varchar(100) not null,
-    password varchar(100) not null
+    password varchar(100) not null,
+    roles varchar(100) not null
 );

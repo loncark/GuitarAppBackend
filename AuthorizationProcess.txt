@@ -37,5 +37,9 @@ the UserInfo object mapped to UserDetails.
 
 9. Update the schema.sql and optionally data.sql.
 
-10. Create a new AuthService to hold a addUser() function and add
-an endpoint to the controller to utilize it.
+10. Create a new AuthService to hold a addUser() function.
+11. Create a new AuthController with an addNewUser endpoint.
+12. Add a AuthenticationProvider to SecurityConfigurer (no
+particular usage, Spring Boot doesn't work without it).
+
+This should now work.

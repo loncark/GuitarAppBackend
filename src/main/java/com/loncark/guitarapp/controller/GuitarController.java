@@ -1,4 +1,4 @@
-package com.loncark.guitarapp;
+package com.loncark.guitarapp.controller;
 
 import com.loncark.guitarapp.dto.GuitarDTO;
 import com.loncark.guitarapp.model.Guitar;
@@ -36,14 +36,14 @@ public class GuitarController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public GuitarDTO save(@Valid @RequestBody final Guitar guitar) {
         return guitarService.save(guitar)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "A guitar with the same code already exists"));
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public GuitarDTO update(@Valid @RequestBody final Guitar guitar) {
         return guitarService.update(guitar)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A guitar was not found by that id"));
