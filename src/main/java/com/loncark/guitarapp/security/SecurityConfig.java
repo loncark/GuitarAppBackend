@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
-                .authorizeHttpRequests().requestMatchers("/", "/auth/new").permitAll()
+                .authorizeHttpRequests().requestMatchers("/", "/auth/**").permitAll()
                 .and()
                 .httpBasic()    // otherwise returns html, not json
                 .and()

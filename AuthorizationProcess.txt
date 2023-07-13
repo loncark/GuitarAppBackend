@@ -47,3 +47,12 @@ under 'Authorization' field in Rester. If the client returns
 html instead of json, add .httpBasic() to SecutiryConfig.
 
 JWT IMPLEMENTATION
+
+14. Write a authenticateAndReturnToken() function and create
+a AuthRequest DTO class that is its argument.
+
+15. Write a JwtService that generates tokens according to
+the JWT rules.
+
+Now JWT is generated for each person, we want to create it
+only for the successfully authenticated one.
