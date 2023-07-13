@@ -9,12 +9,10 @@ to pom.xml.
 
 1. Create a SecurityConfigurer class and in it a userDetailsService()
 that maps users to roles using a password encoder.
-2. Add a SecurityFilterChain to determine which requests should
-require authorization before continuation.
+2. Add a SecurityFilterChain to determine points of authentication.
 
 3. Add @PreAuthorize("hasAuthority('ROLE_ADMIN')") annotation to
-endpoints in the controller to determine who can access which
-endpoint
+endpoints in the controller to determine points of authorization.
 
 This should now work.
 
@@ -44,4 +42,8 @@ particular usage, Spring Boot doesn't work without it).
 13. Add a WebSecurityCustomizer to enable all access
 to h2-console.
 
-This should now work.
+This should now work. To log in, add a name and a password
+under 'Authorization' field in Rester. If the client returns
+html instead of json, add .httpBasic() to SecutiryConfig.
+
+JWT IMPLEMENTATION

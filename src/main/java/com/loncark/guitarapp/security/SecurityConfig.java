@@ -1,14 +1,12 @@
 package com.loncark.guitarapp.security;
 
 import com.loncark.guitarapp.service.UserInfoUserDetailsService;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity
 @Configuration
-public class SecurityConfigurer {
+public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -32,8 +30,11 @@ public class SecurityConfigurer {
         return http.csrf().disable()
                 .authorizeHttpRequests().requestMatchers("/", "/auth/new").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/*").authenticated()
-                .and().formLogin().and().build();
+                .httpBasic()    // otherwise returns html, not json
+                .and()
+                .authorizeHttpRequests().anyRequest().authenticated()
+                .and()
+                .formLogin().and().build();
     }
 
     @Bean   // just for H2 console access, permitAll does not work on it!
@@ -41,7 +42,6 @@ public class SecurityConfigurer {
         return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/h2-console/**"));
     }
 
-    // for the purposes of encrypting the user details above
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
