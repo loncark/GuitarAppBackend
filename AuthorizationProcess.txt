@@ -56,3 +56,6 @@ the JWT rules.
 
 Now JWT is generated for each person, we want to create it
 only for the successfully authenticated one.
+
+16. Add authentication lines to authenticateAndReturnToken()
+and define an AuthenticationManager bean in the Config.
