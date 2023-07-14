@@ -14,3 +14,10 @@ create table if not exists userinfo (
     password varchar(100) not null,
     roles varchar(100) not null
 );
+
+create table if not exists refreshtoken (
+    id identity,
+    expiry_date smalldatetime not null,
+    token varchar(100) not null,
+    user_id int not null
+);

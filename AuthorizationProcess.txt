@@ -76,3 +76,20 @@ go to the ordinary server request that is admin-accessible and
 alongside the necessary data put an Authorization field in the
 header. Make its value "Bearer " plus paste the JWT token. Send it
 and the server will respond affirmatively.
+
+REFRESH TOKEN
+For the purpose of not requiring reauthentication once JWT expires.
+
+19. Create a RefreshToken class that will be bound to a user, its
+repository and service. Create a JwtResponse class that contains
+both JWT and refresh token and send it back to the client.
+
+20. Write a separate endpoint for the refresh token reception.
+Since the refresh token needs to be sent in the body, create a
+RefreshTokenRequest DTO class for it. Add the endpoint to non-
+authenticated endpoints list in SecurityConfig.
+
+This should now work. How to use the refresh token: once the user
+logs in, he will receive a JWT and the refresh token. When JWT
+expires, the user won't need to redo the login, just send the
+refresh token to the /refresh endpoint and new JWT will be sent.
