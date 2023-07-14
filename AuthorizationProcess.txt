@@ -59,3 +59,20 @@ only for the successfully authenticated one.
 
 16. Add authentication lines to authenticateAndReturnToken()
 and define an AuthenticationManager bean in the Config.
+17. Write extractClaim() and validateToken() methods in the
+JwtService that decode and check for token validity.
+18. Write a JwtFilter middleware class that implements
+OncePerRequestFilter interface and calls the validation
+methods above. Add it to the SecurityConfig FilterChain
+alongside the sessionManagement, remove the formLogin.
+
+Now JWT is implemented. This is how to use it: first send a
+POST request to /auth/token with a username and a password in
+the body. You will receive a valid token if they match the data
+in the database, otherwise you get 401 Unathorized response.
+
+Suppose the user you have just validated has the admin role. Now
+go to the ordinary server request that is admin-accessible and
+alongside the necessary data put an Authorization field in the
+header. Make its value "Bearer " plus paste the JWT token. Send it
+and the server will respond affirmatively.
