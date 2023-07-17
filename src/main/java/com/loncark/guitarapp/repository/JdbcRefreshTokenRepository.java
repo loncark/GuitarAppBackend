@@ -2,6 +2,7 @@ package com.loncark.guitarapp.repository;
 
 import com.loncark.guitarapp.model.RefreshToken;
 import com.loncark.guitarapp.model.UserInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,6 +24,9 @@ public class JdbcRefreshTokenRepository implements RefreshTokenRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
+
+    @Autowired
+    private UserInfoRepository uiRepo;
 
     public JdbcRefreshTokenRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -58,12 +62,17 @@ public class JdbcRefreshTokenRepository implements RefreshTokenRepository {
     }
 
     private RefreshToken mapRowToRefreshToken(ResultSet rs, int i) throws SQLException {
-        return new RefreshToken(
-                rs.getLong("id"),
-                rs.getString("token"),
-                rs.getDate("expiry_date").toInstant(),
-                new UserInfo(rs.getLong("user_id"), "", "", "")
-        );
+        Optional<UserInfo> userInfo = uiRepo.findById(rs.getString("user_id"));
+
+        if(userInfo.isPresent()) {
+            return new RefreshToken(
+                    rs.getLong("id"),
+                    rs.getString("token"),
+                    rs.getTimestamp("expiry_date").toInstant(),
+                    userInfo.get()
+            );
+        }
+        else throw new SQLException("No user found by the id of " + rs.getString("user_id"));
     }
 
     private long saveRefreshTokenDetails(RefreshToken rToken) {
@@ -71,7 +80,7 @@ public class JdbcRefreshTokenRepository implements RefreshTokenRepository {
 
         values.put("token", rToken.getToken());
         values.put("expiry_date", rToken.getExpiryDate());
-        values.put("user_info", rToken.getUserInfo());
+        values.put("user_id", rToken.getUserInfo().getId());
 
         return simpleJdbcInsert.executeAndReturnKey(values).longValue();
     }

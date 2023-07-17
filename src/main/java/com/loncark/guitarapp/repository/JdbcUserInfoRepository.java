@@ -42,6 +42,17 @@ public class JdbcUserInfoRepository implements UserInfoRepository {
     }
 
     @Override
+    public Optional<UserInfo> findById(String id) {
+        try {
+            return Optional.ofNullable(
+                    jdbcTemplate.queryForObject(SELECT_ALL + " WHERE id = ?", this::mapRowToUserInfo, id)
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public Optional<UserInfo> save(UserInfo userInfo) {
         try {
             userInfo.setId(saveUserInfoDetails(userInfo));

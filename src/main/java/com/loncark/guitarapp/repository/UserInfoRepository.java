@@ -10,5 +10,7 @@ public interface UserInfoRepository {
 
     Optional<UserInfo> findByName(String name);
 
+    Optional<UserInfo> findById(String id);
+
     Optional<UserInfo> save(UserInfo userInfo);
 }

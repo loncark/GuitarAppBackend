@@ -22,7 +22,7 @@ public class RefreshTokenService {
         RefreshToken rToken = RefreshToken.builder()
                 .userInfo(userInfoRepository.findByName(username).get())
                 .token(UUID.randomUUID().toString())
-                .expiryDate(Instant.now().plusMillis(60000))
+                .expiryDate(Instant.now().plusMillis(1000*60*60))
                 .build();
         return refreshTokenRepository.save(rToken);
     }
