@@ -4,6 +4,7 @@ import com.loncark.guitarapp.service.UserInfoUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -37,6 +38,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests().requestMatchers("/", "/auth/**").permitAll()
+                .and()
+                .authorizeHttpRequests().requestMatchers(HttpMethod.GET, "/{code}").permitAll()
                 .and()
                 .httpBasic()    // otherwise returns html, not json
                 .and()

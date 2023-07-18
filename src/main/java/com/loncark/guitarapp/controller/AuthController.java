@@ -9,15 +9,13 @@ import com.loncark.guitarapp.service.AuthService;
 import com.loncark.guitarapp.service.JwtService;
 import com.loncark.guitarapp.service.RefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -33,6 +31,7 @@ public class AuthController {
     private RefreshTokenService refreshTokenService;
 
     @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.CREATED)
     public String addNewUser(@RequestBody UserInfo userInfo) {
         return authService.addUser(userInfo);
     }
