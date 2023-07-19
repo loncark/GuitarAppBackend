@@ -15,14 +15,14 @@ public class GuitarControllerTest extends BaseControllerTest {
     @Test
     public void testGetByCode() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/1234")
+                        .get("/1231")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Gibson Les Paul Standard 60s"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(2999))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(5))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(1234));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Fender American Vintage II 1961 Stratocaster"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(2449))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(1231));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/0001")
