@@ -1,32 +1,28 @@
 package com.loncark.guitarapp;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GuitarControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
+public class GuitarControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetByCode() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/1233")
+                        .get("/1234")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Fender Gold Foil Jazzmaster"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(1649))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(4))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(1233));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Gibson Les Paul Standard 60s"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(2999))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(5))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(1234));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/0001")
@@ -35,18 +31,8 @@ public class GuitarControllerTest {
     }
 
     @Test
-    public void testDeleteByCode() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/1234"))
-                .andExpect(MockMvcResultMatchers.status().isNoContent());
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/1234")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
-
-    @Test
-    public void testSave() throws Exception {
+    public void testSaveByUser() throws Exception {
+        String validUserJwt = getValidUserJwt();
         String requestBody = "{\"code\": \"1239\", " +
                 "\"body\": \"Mahogany\", " +
                 "\"neck\": \"Maple\", " +
@@ -57,6 +43,7 @@ public class GuitarControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validUserJwt)
                         .content(requestBody))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -67,7 +54,8 @@ public class GuitarControllerTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdateByUser() throws Exception {
+        String validUserJwt = getValidUserJwt();
         String requestBody = "{" +
                 "\"id\": 3, " +
                 "\"code\": \"1111\", " +
@@ -80,6 +68,7 @@ public class GuitarControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validUserJwt)
                         .content(requestBody))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))

@@ -3,25 +3,20 @@ package com.loncark.guitarapp;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.matchesPattern;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
+public class AuthControllerTest extends BaseControllerTest {
 
     @Test
     public void testSignUp() throws Exception {
@@ -81,7 +76,7 @@ public class AuthControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-    @Test()
+    @Test
     public void testDeleteWithInvalidAdminJwt() throws Exception {
         String invalidAdminJwt = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2huIiwiaWF0IjoxNjg5Njc4OTM0LCJleHAiOjE2ODk2Nzg5OTR9.UCxnguP6gDiPHUFJsRKEciUepUklVSUHpf2ek38MSYM";
 
@@ -127,45 +122,5 @@ public class AuthControllerTest {
                         .get("/1235")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
-
-    private String getValidAdminJwt() throws Exception {
-        String requestBody = "{\"username\": \"John\", " +
-                "\"password\": \"johnpassword\"}";
-
-        return getValidJwt(requestBody);
-    }
-
-    private String getValidUserJwt() throws Exception {
-        String requestBody = "{\"username\": \"Mark\", " +
-                "\"password\": \"markpassword\"}";
-
-        return getValidJwt(requestBody);
-    }
-
-    private String getValidJwt(String requestBody) throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                        .post("/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andReturn();
-
-        String responseContent = mvcResult.getResponse().getContentAsString();
-        JSONObject jsonResponse = new JSONObject(responseContent);
-
-        return jsonResponse.getString("accessToken");
-    }
-
-    private String getValidRefreshToken(String requestBody) throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                        .post("/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andReturn();
-
-        String responseContent = mvcResult.getResponse().getContentAsString();
-        JSONObject jsonResponse = new JSONObject(responseContent);
-
-        return jsonResponse.getString("refreshToken");
     }
 }
