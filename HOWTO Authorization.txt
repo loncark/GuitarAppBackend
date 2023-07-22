@@ -1,0 +1,95 @@
+Followed this video: https://youtu.be/R76S0tfv36w
+
+0. Add
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+to pom.xml.
+
+1. Create a SecurityConfigurer class and in it a userDetailsService()
+that maps users to roles using a password encoder.
+2. Add a SecurityFilterChain to determine points of authentication.
+
+3. Add @PreAuthorize("hasAuthority('ROLE_ADMIN')") annotation to
+endpoints in the controller to determine points of authorization.
+
+This should now work.
+
+4. To use a database instead of manual mapping of the roles to
+users, create a UserInfo class and use lombok to autogenerate
+constructors, getters and setters (@Data).
+5. Create a UserInfoRepository.
+6. Make the userDetailsService() return a UserInfoUserDetailsService.
+
+7. Create the UserInfoDetailsService class which is an
+implementation of UserDetailsService and inject the
+UserInfoRepository inside it. The loadUserByUsername() method
+which needs to be implemented will retrieve a UserInfo object and
+it needs to be converted to the UserDetails return type. That's
+why we create a UserInfoUserDetails class that implements UserDetails.
+
+8. Create a UserInfoUserDetails class that mirrors UserInfo
+and implement all the methods. Make loadUserByUsername return
+the UserInfo object mapped to UserDetails.
+
+9. Update the schema.sql and optionally data.sql.
+
+10. Create a new AuthService to hold a addUser() function.
+11. Create a new AuthController with an addNewUser endpoint.
+12. Add a AuthenticationProvider to SecurityConfigurer (no
+particular usage, Spring Boot doesn't work without it).
+13. Add a WebSecurityCustomizer to enable all access
+to h2-console.
+
+This should now work. To log in, add a name and a password
+under 'Authorization' field in Rester. If the client returns
+html instead of json, add .httpBasic() to SecutiryConfig.
+
+JWT IMPLEMENTATION
+
+14. Write a authenticateAndReturnToken() function and create
+a AuthRequest DTO class that is its argument.
+
+15. Write a JwtService that generates tokens according to
+the JWT rules.
+
+Now JWT is generated for each person, we want to create it
+only for the successfully authenticated one.
+
+16. Add authentication lines to authenticateAndReturnToken()
+and define an AuthenticationManager bean in the Config.
+17. Write extractClaim() and validateToken() methods in the
+JwtService that decode and check for token validity.
+18. Write a JwtFilter middleware class that implements
+OncePerRequestFilter interface and calls the validation
+methods above. Add it to the SecurityConfig FilterChain
+alongside the sessionManagement, remove the formLogin.
+
+Now JWT is implemented. This is how to use it: first send a
+POST request to /auth/token with a username and a password in
+the body. You will receive a valid token if they match the data
+in the database, otherwise you get 401 Unathorized response.
+
+Suppose the user you have just validated has the admin role. Now
+go to the ordinary server request that is admin-accessible and
+alongside the necessary data put an Authorization field in the
+header. Make its value "Bearer " plus paste the JWT token. Send it
+and the server will respond affirmatively.
+
+REFRESH TOKEN
+For the purpose of not requiring reauthentication once JWT expires.
+
+19. Create a RefreshToken class that will be bound to a user, its
+repository and service. Create a JwtResponse class that contains
+both JWT and refresh token and send it back to the client.
+
+20. Write a separate endpoint for the refresh token reception.
+Since the refresh token needs to be sent in the body, create a
+RefreshTokenRequest DTO class for it. Add the endpoint to non-
+authenticated endpoints list in SecurityConfig.
+
+This should now work. How to use the refresh token: once the user
+logs in, he will receive a JWT and the refresh token. When JWT
+expires, the user won't need to redo the login, just send the
+refresh token to the /refresh endpoint and new JWT will be sent.
