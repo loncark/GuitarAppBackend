@@ -1,3 +1,0 @@
-Two options:
- 1. MaliciousGuitar + play() that outputs to console
- 2. MaliciousUserInfo with all the privileges
