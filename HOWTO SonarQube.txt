@@ -1,0 +1,40 @@
+1. Download SonarQube and SonarScanner to your Program Files and unzip them to separate folders
+
+2. Go to C:\Program Files\SonarQube\sonarqube-9.9.0.65466\bin\windows-x86-64 and run Startsonar in command prompt in admin mode
+
+3. You should get two messages, leave it running:
+jvm 1 | 2021.02.24 19:44:08 INFO app[][o.s.a.SchedulerImpl] Process[ce] is up
+jvm 1 | 2021.02.24 19:44:08 INFO app[][o.s.a.SchedulerImpl] SonarQube is up
+
+4. Open localhost:9000
+
+5. Log in with admin/admin unless you've already done that, my password is admin/sonarqube (maybe with c?)
+
+6. Create new project manually, create a login token and save it
+
+7. Choose up there "Other" + Windows
+
+SKIP THIS ONE
+8. In the root folder of your project create in VSCode a file sonar-project.properties.conf and in it paste this:
+----------------------------------------------------------------
+# must be unique in a given SonarQube instance
+sonar.projectKey=testProject
+
+# Path is relative to the sonar-project.properties file. Defaults to .
+sonar.sources=src/main/java/
+
+sonar.language=java
+sonar.java.binaries=target/classes
+-----------------------------------------------------------------
+
+9. Add the bin folder of the sonar scanner to path system variables
+
+10. Navigate to the root directory of your project in terminal and run this command:
+
+sonar-scanner.bat -Dsonar.projectKey={YOUR_PROJECT_NAME} -Dsonar.sources="{PROJECT_ROOT_FOLDER_PATH}" -Dsonar.host.url=http://localhost:9000 -Dsonar.login={LOGIN_TOKEN} -Dsonar.java.binaries=target/classes
+
+where YOUR_PROJECT_NAME is the name you gave the project on step 6. Beware that it is 'target/classes' in the last argument, not '**/target/classes' or '/target/classes'! Otherwise it will give you the 'No files nor directories matching' error.
+
+11. If the scan is successful, the page will automatically open in browser
+
+GuitarAppAnalyzeToken: sqp_940cae0c5494eb173290573dedfc255cfc996ff6
