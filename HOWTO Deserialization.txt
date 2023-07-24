@@ -1,3 +1,16 @@
-Two options:
- 1. MaliciousGuitar + play() that outputs to console
- 2. MaliciousUserInfo with all the privileges
+This deserialization example aims to exploit deserialization
+and dirty code flaws. UserInfo class has a method of printMessage()
+that returns "This is a valid user." string. This method is called
+after deserialization and included in the response.
+
+To exploit this, we extend UserInfo to MaliciousUserInfo with
+printMessage() function changed to "MALICIOUS USER". When this
+object is deserialized, it is still recognized as an UserInfo
+object, but since the programmer does not correctly call
+super().printMessage() but just printMessage(), different string
+is output.
+
+printMessage is just a dummy function that is the least dangerous
+of all the other possibilities that could happen. If the UserInfo
+class handled some sensitive data in one of its functions,
+significant damage could be done.
