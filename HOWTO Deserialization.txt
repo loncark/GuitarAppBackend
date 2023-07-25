@@ -14,3 +14,11 @@ printMessage is just a dummy function that is the least dangerous
 of all the other possibilities that could happen. If the UserInfo
 class handled some sensitive data in one of its functions,
 significant damage could be done.
+
+FILTERING CLASSES PRIOR TO DESERIALIZATION
+1. Extend the ObjectInputStream to SecureObjectInputStream and
+override its resolveClass() method to check for allowed class
+names.
+
+2. Use this new OIS during the deserialization process. Consult
+tests for examples.

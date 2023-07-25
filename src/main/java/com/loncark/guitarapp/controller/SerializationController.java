@@ -5,18 +5,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 public class SerializationController {
 
     @Autowired
     private SerializationService serializationService;
 
-    @GetMapping("/serialize")
+    @GetMapping("/serialize/good")
     public String serializeUser() { return serializationService.serializeUserInfo(); }
 
-    @GetMapping("/serializeMalicious")
+    @GetMapping("/serialize/bad")
     public String serializeMaliciousUser() { return serializationService.serializeMaliciousUserInfo(); }
 
-    @GetMapping("/deserialize")
-    public String deserialize() { return serializationService.deserializeUserInfo(); }
+    @GetMapping("/deserialize/safe")
+    public String deserializeSafely() throws IOException { return serializationService.deserializeUserInfoSafely(); }
+
+    @GetMapping("/deserialize/unsafe")
+    public String deserializeUnsafely() throws IOException { return serializationService.deserializeUserInfoUnsafely(); }
 }

@@ -2,6 +2,7 @@ package com.loncark.guitarapp.service;
 
 import com.loncark.guitarapp.model.MaliciousUserInfo;
 import com.loncark.guitarapp.model.UserInfo;
+import com.loncark.guitarapp.security.SecureObjectInputStream;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -44,13 +45,25 @@ public class SerializationService {
         }
     }
 
-    public String deserializeUserInfo() {
+    public String deserializeUserInfoSafely() throws IOException {
+        FileInputStream fin = new FileInputStream("john.ser");
+        SecureObjectInputStream sois = new SecureObjectInputStream(fin);
+
+        return deserializeUserInfo(sois, fin);
+    }
+
+    public String deserializeUserInfoUnsafely() throws IOException {
+        FileInputStream fin = new FileInputStream("john.ser");
+        ObjectInputStream ois = new ObjectInputStream(fin);
+
+        return deserializeUserInfo(ois, fin);
+    }
+
+    public String deserializeUserInfo(ObjectInputStream ois, FileInputStream fin) {
         try {
-            FileInputStream fileIn = new FileInputStream("john.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            UserInfo deserializedUserInfo = (UserInfo) in.readObject();
-            in.close();
-            fileIn.close();
+            UserInfo deserializedUserInfo = (UserInfo) ois.readObject();
+            ois.close();
+            fin.close();
 
             System.out.println("Deserialized UserInfo object:");
             System.out.println(deserializedUserInfo);
