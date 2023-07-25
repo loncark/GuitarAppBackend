@@ -1,0 +1,9 @@
+1. Deploy the app to Openshift (or Docker?)
+It does not work on localhost bc %20 gets substituted
+for spaces in the request.
+
+2. Send a GET request on this address:
+https://guitar-app-guitarapp.apps.na410r.prod.ole.redhat.com/1231;delete from guitar
+
+3. The item is now deleted and getByCode returns 404
+when you search for code 1231.

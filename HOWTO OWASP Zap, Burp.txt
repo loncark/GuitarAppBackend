@@ -1,0 +1,13 @@
+OWASP Zap: just do an automatic scan on localhost, then
+check for bugs under 'Alerts'.
+
+Burp Suite:
+0. On entry: Temporary project, Burp defaults
+1. Change to 'Proxy' tab.
+2. In Firefox, go to Settings -> Network Settings ->
+check Manual proxy config and click OK
+3. In Burp, enable intercept.
+4. Navigate to a page in Firefox, you shouldn't be able to
+see it
+5. The request will appear automatically in Burp, to forward
+it to the browser, click 'Forward'
