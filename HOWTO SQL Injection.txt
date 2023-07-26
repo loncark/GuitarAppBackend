@@ -1,9 +1,28 @@
-1. Deploy the app to Openshift (or Docker?)
-It does not work on localhost bc %20 gets substituted
-for spaces in the request.
+The repository of the app has to be as basic as possible,
+and I do not have that, so I am unable to execute a query like
+GET localhost:7000/1231;delete from guitar
+and get my whole table to be obliterated.
 
-2. Send a GET request on this address:
-https://guitar-app-guitarapp.apps.na410r.prod.ole.redhat.com/1231;delete from guitar
+In the mysql2-APP branch, the repository is implemented
+using JPARepository which is already secure by default.
+In words of ChatGPT:
+"When you use methods like findBy..., getBy..., or custom query
+methods defined in your JpaRepository interface, Spring Data JPA
+automatically translates these method signatures into appropriate
+database queries with placeholders for the parameters. The actual
+values of the parameters are securely bound to the query using
+prepared statements, avoiding any direct concatenation of user
+input into the SQL query."
 
-3. The item is now deleted and getByCode returns 404
-when you search for code 1231.
+In the SecureCoding branch, queries like this are used:
+jdbcTemplate.queryForObject(
+    SELECT_ALL + " WHERE code = ?", this::mapRowToGuitar, code)
+This is also safe, provided SELECT_ALL and code are valid.
+In words of ChatGPT:
+"The reason why it's safe is because the query is using a parameter
+placeholder (?) for the code value. When you use a parameter
+placeholder in a query with Spring's jdbcTemplate, the JDBC driver
+will treat the parameter as a parameterized value and not as
+executable SQL code. This ensures that the code value is properly
+escaped and quoted before being inserted into the query, preventing
+any potential SQL injection."
