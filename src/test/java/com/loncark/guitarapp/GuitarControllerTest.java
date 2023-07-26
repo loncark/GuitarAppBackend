@@ -34,8 +34,8 @@ public class GuitarControllerTest extends BaseControllerTest {
     public void testSaveByUser() throws Exception {
         String validUserJwt = getValidUserJwt();
         String requestBody = "{\"code\": \"1239\", " +
-                "\"body\": \"Mahogany\", " +
-                "\"neck\": \"Maple\", " +
+                "\"body\": \"MAHOGANY\", " +
+                "\"neck\": \"MAPLE\", " +
                 "\"price\": 129.00, " +
                 "\"stock\": 5, " +
                 "\"name\": \"Squier Classic Vibe Telecaster\"}";
@@ -59,8 +59,8 @@ public class GuitarControllerTest extends BaseControllerTest {
         String requestBody = "{" +
                 "\"id\": 3, " +
                 "\"code\": \"1111\", " +
-                "\"body\": \"Mahogany\", " +
-                "\"neck\": \"Maple\", " +
+                "\"body\": \"MAHOGANY\", " +
+                "\"neck\": \"MAPLE\", " +
                 "\"price\": 129.00, " +
                 "\"stock\": 5, " +
                 "\"name\": \"Squier Classic Vibe Telecaster\"}";
