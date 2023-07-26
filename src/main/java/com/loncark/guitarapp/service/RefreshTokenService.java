@@ -1,6 +1,7 @@
 package com.loncark.guitarapp.service;
 
 import com.loncark.guitarapp.model.RefreshToken;
+import com.loncark.guitarapp.model.UserInfo;
 import com.loncark.guitarapp.repository.RefreshTokenRepository;
 import com.loncark.guitarapp.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,17 @@ public class RefreshTokenService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    public RefreshToken createRefreshToken(String username) {
-        RefreshToken rToken = RefreshToken.builder()
-                .userInfo(userInfoRepository.findByName(username).get())
-                .token(UUID.randomUUID().toString())
-                .expiryDate(Instant.now().plusMillis(1000*60*60))
-                .build();
-        return refreshTokenRepository.save(rToken);
+    public RefreshToken createRefreshToken(String username) throws ClassNotFoundException {
+        Optional<UserInfo> uInfo = userInfoRepository.findByName(username);
+        if(uInfo.isPresent()) {
+            RefreshToken rToken = RefreshToken.builder()
+                    .userInfo(uInfo.get())
+                    .token(UUID.randomUUID().toString())
+                    .expiryDate(Instant.now().plusMillis((long)1000 * 60 * 60))
+                    .build();
+            return refreshTokenRepository.save(rToken);
+        }
+        else throw new ClassNotFoundException("Optional value is not present.");
     }
 
     public Optional<RefreshToken> findByToken(String rToken) {

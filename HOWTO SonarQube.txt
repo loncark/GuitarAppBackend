@@ -8,24 +8,11 @@ jvm 1 | 2021.02.24 19:44:08 INFO app[][o.s.a.SchedulerImpl] SonarQube is up
 
 4. Open localhost:9000
 
-5. Log in with admin/admin unless you've already done that, my password is admin/sonarqube (maybe with c?)
+5. Log in with admin/admin unless you've already done that, my password is admin/sonarqube
 
 6. Create new project manually, create a login token and save it
 
 7. Choose up there "Other" + Windows
-
-SKIP THIS ONE
-8. In the root folder of your project create in VSCode a file sonar-project.properties.conf and in it paste this:
-----------------------------------------------------------------
-# must be unique in a given SonarQube instance
-sonar.projectKey=testProject
-
-# Path is relative to the sonar-project.properties file. Defaults to .
-sonar.sources=src/main/java/
-
-sonar.language=java
-sonar.java.binaries=target/classes
------------------------------------------------------------------
 
 9. Add the bin folder of the sonar scanner to path system variables
 
@@ -37,4 +24,4 @@ where YOUR_PROJECT_NAME is the name you gave the project on step 6. Beware that 
 
 11. If the scan is successful, the page will automatically open in browser
 
-GuitarAppAnalyzeToken: sqp_940cae0c5494eb173290573dedfc255cfc996ff6
+GuitarAppAnalyzeToken: sqp_63580b8ed123b5f52fbda3f319191077c934923a

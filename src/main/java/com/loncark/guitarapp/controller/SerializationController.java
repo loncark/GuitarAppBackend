@@ -17,7 +17,7 @@ public class SerializationController {
     public String serializeUser() { return serializationService.serializeUserInfo(); }
 
     @GetMapping("/serialize/bad")
-    public String serializeMaliciousUser() { return serializationService.serializeMaliciousUserInfo(); }
+    public String serializeMaliciousUser() throws IOException { return serializationService.serializeMaliciousUserInfo(); }
 
     @GetMapping("/deserialize/safe")
     public String deserializeSafely() throws IOException { return serializationService.deserializeUserInfoSafely(); }

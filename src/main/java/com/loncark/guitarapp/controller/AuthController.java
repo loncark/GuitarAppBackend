@@ -37,7 +37,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public JwtResponse authenticateAndReturnToken(@RequestBody AuthRequest authRequest) {
+    public JwtResponse authenticateAndReturnToken(@RequestBody AuthRequest authRequest) throws ClassNotFoundException {
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(),
                         authRequest.getPassword()));
