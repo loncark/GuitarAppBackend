@@ -3,6 +3,8 @@ package com.loncark.guitarapp;
 import com.loncark.guitarapp.dto.GuitarDTO;
 import com.loncark.guitarapp.model.guitar.Guitar;
 import com.loncark.guitarapp.service.GuitarService;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,16 +12,20 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-import static java.lang.Thread.sleep;
-
 @RestController
 @RequestMapping("/")
 public class GuitarController {
 
     private final GuitarService guitarService;
 
-    public GuitarController(GuitarService guitarService) {
+    public GuitarController(GuitarService guitarService, MeterRegistry registry) {
         this.guitarService = guitarService;
+
+        // custom Prometheus metric configuration
+        Gauge.builder("guitarapp.guitarcount", guitarService.fetchGuitarCount()).
+                tag("version","v1").
+                description("Number of guitars in database.").
+                register(registry);
     }
 
     @RequestMapping
@@ -53,5 +59,4 @@ public class GuitarController {
     public void delete(@PathVariable String code){
         guitarService.deleteByCode(code);
     }
-
 }

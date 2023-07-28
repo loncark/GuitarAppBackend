@@ -5,6 +5,7 @@ import com.loncark.guitarapp.model.guitar.Guitar;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public interface GuitarService {
 
@@ -15,4 +16,6 @@ public interface GuitarService {
     Optional<GuitarDTO> save(Guitar guitar);
 
     void deleteByCode(String code);
+
+    Supplier<Number> fetchGuitarCount();
 }

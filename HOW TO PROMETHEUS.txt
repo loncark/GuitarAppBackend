@@ -26,6 +26,13 @@ server.port=7000
 -----------------------------------------------------------------
 Access then localhost:9090 and pick the metric to evaluate.
 
+Adding custom metrics: add a MeterRegistry parameter in the
+constructor of your controller and pick if you want it to be a
+gauge (simple number), counter (sum total of sth) or a timer
+(duration). Build the metric and it should appear under the
+name you specified in /actuator/prometheus. For everything else
+consult https://www.tutorialworks.com/spring-boot-prometheus-micrometer/
+
 GRAFANA
 1. Run the docker image:ć
 docker run -d --name=grafana -p 3000:3000 grafana/grafana

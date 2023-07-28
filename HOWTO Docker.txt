@@ -21,10 +21,10 @@ server.port=7000
 
 5. docker run -d -p 7000:7000 guitarapp
 
-BEZ NETWORKA
+BEZ NETWORKA!
 
 Openshift deployment
 
-1. create template mysql: no user, password = password, root_password = password
-2. create app pod from git (S2I) branch mysql2-APP
-3. administrator view -> deployment of app pod -> add HOST value mysql
+1. Create template mysql: no user, password = password, root_password = password
+2. Create app pod from git (S2I) from desired branch
+3. Administrator view -> Deployment of app pod -> add HOST value mysql
