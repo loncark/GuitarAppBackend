@@ -1,34 +1,45 @@
-Create PrometheusConfig class:
+You need to have an instance of mysql container run on port 3306
+for this to work.
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
+application.properties:
+-----------------------------------------------------------------
+spring.jpa.show-sql=true
+spring.datasource.url=jdbc:mysql://localhost:3306/testdb
+spring.datasource.username=root
+spring.datasource.password=password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.sql.init.mode=always
 
-@Configuration
-@EnableScheduling
-public class PrometheusConfig {
-}
-
-
-
-add these to application.properties:
-
-management.endpoints.web.exposure.include=*
-management.endpoint.metrics.enabled=true
 spring.main.allow-bean-definition-overriding=true
 
+management.endpoints.web.base-path=/actuator
+management.endpoints.web.exposure.include=health,info,prometheus
+management.endpoint.health.show-details=always
+management.endpoint.metrics.enabled=true
+management.endpoint.prometheus.enabled=true
+scrape_configs.job_name='guitar'
+scrape_configs.metrics_path='/actuator/prometheus'
+scrape_configs.scrape_interval=2s
+scrape_configs.static_configs.targets=['http://localhost:9090']
 
+server.port=7000
+-----------------------------------------------------------------
+Access then localhost:9090 and pick the metric to evaluate.
 
-and these to pom.xml:
-<!-- For prometheus monitoring -->
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-prometheus</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+GRAFANA
+1. Run the docker image:ć
+docker run -d --name=grafana -p 3000:3000 grafana/grafana
 
+2. Access localhost:3000 and login with admin/admin credentials
 
+3. Add new datasource -> Prometheus
 
-Then run the prometheus server/container and access the console on localhost:9090. Pick a desired metric, set time to last 5mins and click execute. Then send some requests.
+4. Don't put localhost as url, but 172.27.16.1:9090 or whatever
+port your Prometheus server is accessible from
+
+5. GET request at the bottom, not POST
+
+6. Save&Test should be green provided your app and Prometheus
+server are running
+
+7. Add new dashboard -> Graph -> Add Query -> Run Query
