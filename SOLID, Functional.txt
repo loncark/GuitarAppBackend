@@ -1,0 +1,49 @@
+1. Single responsibility principle:
+Instead of putting all the code and functionalities in the same class,
+we use a controller, a service and a repository class each to handle a
+single problem. Controller is the one that deals with routing requests,
+Service provides a set of available methods to call and repository handles
+database queries.
+
+2. Open/closed principle:
+In order to demonstrate an insecure deserialization attack using the
+UserInfo class in the SecureCoding branch, I leave that class open for
+extension and derive a MaliciousUserInfo from it.
+Alternatively, instead of modifying the Guitar class, I derive an
+ElectricGuitar class and a ClassicalGuitar from it.
+
+3. Liskov substitution principle:
+MaliciousUserInfo is easily substitutable as UserInfo during deserialization.
+Alternatively, both ElectricGuitar and ClassicalGuitar extend the initial
+Guitar class and are pluggable into the existing server interface.
+
+4. Interface segregation principle:
+Suppose we wanted to rewrite the app to handle instruments in general.
+A possible interface for an instrument is very large. In this case, it
+may consist of plugging the instrument into a power source, tuning it and
+polishing its body. Since not all functionalities of that interface can
+be implemented in all instruments, we split it into PolishableInstrument,
+TunableInstrument and PluggableInstrument. ElectricGuitar implements then
+Pluggable and Tunable, Classical Polishable and Tunable, whereas for
+example an oboe, if we were to add it, would be neither.
+
+5. Dependency inversion principle: 
+There are two ways to implement GuitarRepository. One is by
+extending JPARepository (this branch), the other is using JDBC
+(SecureCoding branch). Either way, my GuitarService class depends
+only on the GuitarRepository interface which makes these two
+interchangeable.
+
+FUNCTIONAL PROGRAMMING
+In SC branch, I used to have two functions for secure and insecure
+object deserialization. Since both ob them had the same code and
+relied just on a different type of ObjectInputStream class, I
+extracted from them all the duplicate code and turned it into one
+function they both call, just with different input parameter. Now
+the output of these functions relies only on their input.
+
+In the ComposeApp, any of the screens in the view folder are based
+on functional programming: the output (display) depends exclusively
+on the input parameters. Additionally, lambdas are omnipresent and
+constantly forwarded as arguments to other functions. Example:
+filter function in HomeScreen.
