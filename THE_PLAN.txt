@@ -38,6 +38,7 @@ spring.h2.console.enabled=true
 ---------------------------------------------------------------------
 
 *** DO NOT PUT IDS IN DATA.SQL WHEN WORKING WITH JPA ***
+*** DO NOT NAME THE TABLE 'USER' BC IT IS A RESERVED WORD FOR H2 DATABASE ***
 
 ---------------------------------------------------------------------
 
